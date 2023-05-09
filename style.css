@@ -1,0 +1,181 @@
+*{
+  box-sizing: border-box;
+  background-origin: border-box;
+  margin: 0;
+}
+body{
+  background: #E3FDF2;
+  position: relative;
+}
+/* I changed the background to a light green/cyan colour to create some contrast 
+with the media player in which the colour theme was purple, to make it stands out more. */
+.whole-player{
+  margin: auto;
+}
+/* Basis for colour palette comes from 1bit Monitor Glow Palette by Polyducks */
+/* https://lospec.com/palette-list/1bit-monitor-glow */
+/* you're welcome to change the colours if you want or any of the other general page style */
+:root{
+  --col-01:#222323;
+  --col-02:#f0f6f0;
+  --col-03:#5252ff;
+  --col-04:#b6e878;
+  --col-05:#bcbdbc;
+  --col-06:#6f6f6f;
+  --border: 1px solid var(--col-02);
+}
+
+.video-player-wrapper{
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: 50%;
+  margin: 100px auto;
+  box-shadow: -1px 3px 17px 0px rgba(0,0,0,0.75);
+}
+.video-player-wrapper.fullscreen{
+  width: 100%;
+  max-width: 100%;
+  height: 100%;
+  margin: 0;
+}
+/* becuase I want to overlay the play icon on the video they need to be in their own wrapper */
+.video-element-wrapper{
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 1fr;
+}
+
+#videoElement{
+  width: 100%;
+  grid-column: 1/2;
+  grid-row: 1/2;
+}
+
+#videoPlayOverlay{
+  width: 8rem;
+  height: 8rem;
+  grid-column: 1/2;
+  grid-row: 1/2;
+  justify-self: center;
+  align-self: center;
+  opacity: 0.6;
+  display: block;
+}
+
+.video-controls-wrapper{
+  display: flex;
+  justify-content: center;
+  position: absolute;
+  top: 90%;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+/* this overwrites the above display:flex - something which is then undone when the JS loads */
+#controlsWrapper{
+  display: none;
+}
+.whole-controls{
+  display: none;
+}
+.video-player-wrapper:hover .whole-controls{
+  display: block;
+}
+
+.video-control-button{
+  width: 2rem;
+  height: 2rem;
+  padding: .1rem;
+  border: none;
+  cursor: pointer;
+  position: relative;
+  opacity: 0.5;
+}
+.video-control-button:hover{
+  background-color: var(--col-05);
+}
+.video-control-button:active{
+  background-color: var(--col-06);
+}
+.button-icon{
+  pointer-events: none;
+}
+
+#playButton{
+  background-image: url('./icons/play.svg');
+}
+
+.video-progress-bar{
+  /* Reset the default appearance */
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  border: none;
+  height: 2rem;
+  flex-grow: 1;
+  opacity: 0.5;
+  cursor: pointer;
+  box-shadow: 0 1px 2px var(--col-02) inset;
+}
+::-moz-progress-bar {
+  background-color: var(--col-02);
+}
+
+::-webkit-progress-bar {
+  background-color: var(--col-02);
+  box-shadow: 0 1px 2px var(--col-02) inset;
+ 
+}
+::-webkit-progress-value {
+  background-color: var(--col-03);
+  
+}
+
+.timeline-loading{
+  background-image: -moz-repeating-linear-gradient(45deg, var(--col-03) 0% 2%, transparent 2% 4%, red 4%);
+  background-size: 200% 100%;
+  animation: loadingAnimation 4s linear infinite;
+}
+
+@keyframes loadingAnimation {
+  100%{
+    background-position: 50% 0%;
+  }
+}
+.video-basic{
+  display: flex;
+  justify-content: end;
+  position: absolute;
+  top: 80%;
+  left: 86%;
+  opacity: 0.6;
+}
+.mute{
+  border: none;
+  width: 30px;
+  height: 30px;
+  margin-right: 20px;
+  cursor: pointer;
+  background-image: url(icons/mute.svg);
+}
+.active{
+  background-image: url(icons/unmute.svg);
+}
+.big{
+  cursor: pointer;
+  border: none;
+  width: 30px;
+  height: 30px;
+  background-image: url(icons/fullScreen.svg);
+}
+
+/* Overall, my design decisions include repositioning the media player to the center for better visibility, 
+moving the added feature buttons to the right of the media player, attention more to a cohesive styling web page.
+
+In terms of responsiveness, I have made the video progress bar to be slightly transparent, again, for better visibilty and 
+making the media player looks seamless, and the bar goes away when we are not interacting with it.
+
+Besides the added buttons and progress bar features, the choice of colours to compliment the video's theme, the slightly fading 
+borders to make the video stand out more from the page, also plays a role in improving the experience, and usabilty for users.
+*/
